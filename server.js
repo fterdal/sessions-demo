@@ -16,13 +16,57 @@ app.use(
     saveUninitialized: true,
   })
 );
+
+let globalCounter = 1;
+
 app.get('/', (req, res, next) => {
   console.log('Session:', req.session);
   console.log('Session ID:', req.session.id);
   console.log('Headers: ', req.headers);
   console.log('Cookie: ', req.headers.cookie);
+  globalCounter++;
+
+  // if (req.headers.cookie) {
+  //   req.headers.cookie.value.favoriteDessert = 'mango sticky rice';
+  // }
+
+  if (req.session.counter) {
+    req.session.counter++;
+  } else {
+    req.session.counter = 1;
+  }
+
+  if (req.session.user) {
+    req.session.user = {
+      id: req.session.user.id+1,
+      email: 'someemail@mysite.com',
+    };
+  } else {
+    req.session.user = {
+      id: 1,
+      email: 'someemail@mysite.com'
+    }
+  }
+  if (req.session.user.id > 10) {
+    delete req.session.user;
+  }
+
   res.send(`
+  <style>
+    p.cookie {
+      font-size: ${req.session.counter}px;
+    }
+    p.ice-cream {
+      font-size: ${globalCounter}px;
+    }
+
+  </style>
   <h1>Hello</h1>
+  <div>
+    <div>Your Session ID = ${req.session.id}</div>
+    <p class="cookie">🍪</p>
+    <p class="ice-cream">🥭🍨</p>
+  </div>
   `);
 });
 const PORT = 8080;
