@@ -19,8 +19,6 @@
     "sourceType": "module"
   },
   "plugins": ["react"],
-  // Don't lint these things. They're always gonna be messy.
-  "ignorePatterns": ["dist", "bundle*", "node_modules"],
   "rules": {
     "semi": "off",
     "react/prop-types": "off",
