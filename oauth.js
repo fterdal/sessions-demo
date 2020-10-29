@@ -3,6 +3,7 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const { createOrCreateUser } = require('./users');
 
+// /oauth/google
 router.get('/google', passport.authenticate('google', { scope: 'email' }));
 
 router.get(
@@ -13,6 +14,11 @@ router.get(
   })
 );
 
+
+// NEVER send any client secrets to GitHub like this. The only reason I'm doing this
+// here is because I created these credentials right before the code demo, and deleted them right afterwards.
+// Instead, consider utilizing the "process environment" to set/retrieve private secrets like this one.
+// Check out this article for some additional information: https://www.twilio.com/blog/working-with-environment-variables-in-node-js-html
 passport.use(
   new GoogleStrategy(
     {
