@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-const { createOrCreateUser } = require('./users')
+const { createOrCreateUser } = require('./users');
 
 router.get('/google', passport.authenticate('google', { scope: 'email' }));
 
@@ -17,9 +17,9 @@ passport.use(
   new GoogleStrategy(
     {
       clientID:
-        process.env.GOOGLE_CLIENT_ID || 'nope',
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET || 'not gonna work',
-      callbackURL: 'http://localhost:8080/oauth/google/callback',
+        '720195130792-g1v8ddu9701udlt40n9bdeuc1ve1v2c5.apps.googleusercontent.com',
+      clientSecret: 'U3tJHyp6Cgbfx3_O7q4P07LZ',
+      callbackURL: 'https://1bda78c88cee.ngrok.io/oauth/google/callback',
     },
     // Google will send back the token and profile
     (token, refreshToken, profile, done) => {
