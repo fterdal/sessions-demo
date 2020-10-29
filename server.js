@@ -6,6 +6,8 @@ const app = express();
 
 app.use(morgan('dev'));
 
+let globalCounter = 0;
+
 app.use(
   session({
     // this mandatory configuration ensures that session IDs are not predictable
@@ -21,7 +23,19 @@ app.get('/', (req, res, next) => {
   console.log('Session ID:', req.session.id);
   console.log('Headers: ', req.headers);
   console.log('Cookie: ', req.headers.cookie);
-  res.send('Hello');
+  if (req.session.counter) {
+    req.session.counter++;
+  } else {
+    req.session.counter = 1;
+  }
+  globalCounter++;
+  res.send(`
+  <div>
+    <h1>Welcome to our Cookie Bakery!</h1>
+    <div>🌏 Global Visitors: ${globalCounter}</div>
+    <div>🍪 Your Requests: ${req.session.counter}</div>
+  </div>
+  `);
 });
 const PORT = 8080;
 
