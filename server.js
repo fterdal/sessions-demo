@@ -9,7 +9,7 @@ app.use(morgan('dev'));
 app.use(
   session({
     // this mandatory configuration ensures that session IDs are not predictable
-    secret: '2006-FSA-RM-CHI is cool', // or whatever you like
+    secret: '2009-FSA-RM is cool', // or whatever you like
     // this option says if you haven't changed anything, don't resave. It is recommended and reduces session concurrency issues
     resave: false,
     // this option says if I am new but not modified still save
